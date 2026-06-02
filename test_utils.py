@@ -34,3 +34,24 @@ def test_multiply(a, b, expected):
 def test_divide(a, b, expected):
     result = utils.divide(a, b)
     assert result == expected
+
+
+@pytest.mark.parametrize(
+    "value, expected", [(0, "0"), (1, "1"), (2, "10"), (5, "101"), (100, "1100100")]
+)
+def test_natural_to_binary(value, expected):
+    result = utils.natural_to_binary(value)
+
+    assert result == expected
+
+
+@pytest.mark.parametrize("value", [-1, 101])
+def test_natural_to_binary_out_of_range(value):
+    with pytest.raises(ValueError):
+        utils.natural_to_binary(value)
+
+
+@pytest.mark.parametrize("value", [1.5, "3", None, True])
+def test_natural_to_binary_not_natural(value):
+    with pytest.raises(TypeError):
+        utils.natural_to_binary(value)
